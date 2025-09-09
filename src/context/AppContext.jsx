@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 
-// ✅ Safe JSON parse helper
 function safeParse(item, fallback) {
   try {
     const value = localStorage.getItem(item);
@@ -10,7 +9,6 @@ function safeParse(item, fallback) {
   }
 }
 
-// Initial state
 const init = {
   auth: {
     isAuthenticated: !!localStorage.getItem('auth'),
@@ -20,7 +18,6 @@ const init = {
   theme: localStorage.getItem('theme') || 'light',
 };
 
-// Reducer
 function reducer(state, action) {
   switch (action.type) {
     case 'LOGIN':
@@ -72,14 +69,11 @@ function reducer(state, action) {
   }
 }
 
-// Context
 const AppContext = createContext();
 
-// Provider
 export function AppProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, init);
 
-  // Persist tasks globally
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(state.tasks));
   }, [state.tasks]);
@@ -91,7 +85,6 @@ export function AppProvider({ children }) {
   );
 }
 
-// Custom hook
 export const useAppContext = () => useContext(AppContext);
 
 export default AppContext;

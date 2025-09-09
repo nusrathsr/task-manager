@@ -8,7 +8,6 @@ export default function TaskDetails() {
   const { state, dispatch } = useAppContext();
   const navigate = useNavigate();
 
-  // Find task by ID
   const task = state.tasks.find(t => t.id.toString() === id);
 
   if (!task) {
@@ -34,7 +33,6 @@ export default function TaskDetails() {
     <div className="d-flex justify-content-center align-items-center" style={{ padding: '20px', minHeight: '60vh' }}>
       <Card className="p-4 shadow-lg rounded-4" style={{ maxWidth: '600px', width: '100%', backgroundColor: 'rgba(255,255,255,0.95)' }}>
         <Card.Body>
-          {/* Task Title with checkbox */}
           <Card.Title className="mb-3">
             <Form.Check
               type="checkbox"
@@ -51,11 +49,7 @@ export default function TaskDetails() {
               }
             />
           </Card.Title>
-
-          {/* Task Description */}
           <Card.Text className="mb-3 text-muted">{task.description || 'No description provided'}</Card.Text>
-
-          {/* Status Badge */}
           <Badge
             bg={task.completed ? 'success' : 'warning'}
             text={task.completed ? 'light' : 'dark'}
@@ -63,8 +57,6 @@ export default function TaskDetails() {
           >
             {task.completed ? '✅ Completed' : '⏳ Pending'}
           </Badge>
-
-          {/* Action Buttons */}
           <div className="d-flex gap-2 mb-3 flex-wrap">
             <Link
               to="edit"
@@ -99,8 +91,6 @@ export default function TaskDetails() {
               Back
             </Button>
           </div>
-
-          {/* ✅ Nested route outlet for TaskEdit */}
           <Outlet />
         </Card.Body>
       </Card>
