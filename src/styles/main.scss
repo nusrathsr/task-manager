@@ -1,0 +1,25 @@
+
+@use "sass:color";
+
+
+$primary: #4a90e2;
+$body-bg: #f5f7fa;
+$font-family-sans-serif: 'Inter', 'Segoe UI', Arial, sans-serif;
+
+
+@use "bootstrap/scss/bootstrap";
+
+
+body {
+  background-color: $body-bg;
+  font-family: $font-family-sans-serif;
+}
+
+.dark-theme {
+  background-color: #121212;
+  color: #e4e6eb;
+
+  .navbar {
+    background-color: #1f1f1f;
+  }
+}
