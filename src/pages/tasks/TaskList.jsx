@@ -9,6 +9,7 @@ export default function TaskList() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -39,7 +40,12 @@ export default function TaskList() {
     task =>
       (task.title?.toLowerCase() || "").includes(searchQuery.toLowerCase()) ||
       (task.description?.toLowerCase() || "").includes(searchQuery.toLowerCase())
-  );
+  )
+  .filter(task => {
+      if (statusFilter === 'completed') return task.completed;
+      if (statusFilter === 'not_completed') return !task.completed;
+      return true; // 'all'
+    });
 
   if (loading) {
     return (
@@ -59,10 +65,10 @@ export default function TaskList() {
 
   return (
     <div style={{ maxWidth: '800px', margin: '20px auto' }}>
-      <h2 className="mb-4 text-center fw-bold" style={{ color: '#333' }}>Tasks</h2>
+      <h2 className="mb-4 text-center fw-bold" style={{ color: '#1709d6ff' }}>Tasks</h2>
 
       {/* Search Bar */}
-      <Card className="mb-4 shadow-sm rounded-4 p-3">
+      <Card className="mb-4 shadow-sm rounded-4 p-3 d-flex flex-column flex-md-row gap-2">
         <Form.Control
           type="text"
           placeholder="Search tasks..."
@@ -70,6 +76,15 @@ export default function TaskList() {
           onChange={e => setSearchQuery(e.target.value)}
           className="rounded-3"
         />
+        <Form.Select
+          value={statusFilter}
+          onChange={e => setStatusFilter(e.target.value)}
+          className="rounded-3"
+        >
+          <option value="all">All Tasks</option>
+          <option value="completed">Completed</option>
+          <option value="not_completed">Not Completed</option>
+        </Form.Select>
       </Card>
 
       {filteredTasks.length === 0 && (
