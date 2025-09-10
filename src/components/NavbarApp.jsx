@@ -33,7 +33,7 @@ export default function NavbarApp() {
     >
       <Container>
         {/* Brand */}
-        <Navbar.Brand as={Link} to="/" className="fw-bold fs-4">
+        <Navbar.Brand className="fw-bold fs-4">
           Task Manager
         </Navbar.Brand>
 
